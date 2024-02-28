@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "907519681656",
+    "project_id": "fire-diwe",
+    "storage_bucket": "fire-diwe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:907519681656:android:f582eb6de2decd8cc9398d",
+        "android_client_info": {
+          "package_name": "com.example.diwe_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "907519681656-q1mn95mkb3r423u8i3bncttllbs3og9h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5GS8QOoWxZ0pwTL70kXuUoQEV3cyM8Wo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "907519681656-q1mn95mkb3r423u8i3bncttllbs3og9h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "907519681656-812sd3umd21qmklg27tn0g368tvhu793.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.diweFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
