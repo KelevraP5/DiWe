@@ -1,7 +1,5 @@
+import 'package:diwe_flutter/pages/liste_materiel.dart';
 import 'package:flutter/material.dart';
-
-import 'package:diwe_flutter/pages/home.dart';
-import 'package:diwe_flutter/components/bottom_nav_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,9 +38,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
+          InkWell(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => ListeMateriel())),
+              child: Text('Liste de matériel'),
+          ),
         ],
       ),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 }
