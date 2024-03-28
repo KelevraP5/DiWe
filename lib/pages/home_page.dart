@@ -1,14 +1,14 @@
-import 'package:diwe_flutter/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:diwe_flutter/main.dart';
+import 'colors.dart';
 import 'connection_page.dart';
-import 'emergency_page.dart';
+import 'emergency/emergency_page.dart';
 import 'report_page.dart';
-import 'prescription_page.dart';
+import 'prescription/prescription_page.dart';
 import 'bolus_page.dart';
-import 'profile_page.dart'; // Import du fichier de la page de profil
+import 'profile/profile_page.dart';
+import 'settings_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,7 +24,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        // Pour supprimer le bouton de retour automatique
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -33,33 +32,25 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 8.0, horizontal: 4.0),
-                  // Ajustez les valeurs de padding selon vos besoins
                   child: Text(
                     'Bonjour, Mohamed',
                     style: TextStyle(
                       fontSize: 18,
-                      color: d_red, // Couleur d_red
-                      fontWeight: FontWeight.bold, // Texte en gras
+                      color: AppColors.primaryColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 8.0, horizontal: 4.0),
-                  // Ajustez les valeurs de padding selon vos besoins
-                  child: Image.asset(
-                    'images/emoji_smile.png', // Chemin vers l'image d'emoji
-                    width: 20, // Taille de l'image
-                    height: 20,
                   ),
                 ),
               ],
             ),
             IconButton(
-              icon: Icon(Icons.account_circle), // Icône de profil
-              color: d_red,
+              icon: Icon(Icons.account_circle),
+              color: AppColors.primaryColor,
               onPressed: () {
-                // Navigation vers la page de profil
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
+                );
               },
             ),
           ],
@@ -104,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   'Insuline',
                                   style: TextStyle(
-                                    color: d_red,
+                                    color: AppColors.primaryColor,
                                     fontSize: 15.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -112,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   '5.80 Unité',
                                   style: TextStyle(
-                                    color: d_red,
+                                    color: AppColors.primaryColor,
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -120,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   'Moyenne : 3.61',
                                   style: TextStyle(
-                                    color: d_red,
+                                    color: AppColors.primaryColor,
                                     fontSize: 15.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -148,29 +139,35 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            _buildFloatingActionButton(), // Ajout du bouton flottant
+            _buildFloatingActionButton(),
           ],
         ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Color(0xFFF6F6F6),
+        backgroundColor: Color(0xFFFFFFFF),
         items: <Widget>[
-          _buildIcon(Icons.home, d_red, 30),
-          _buildIcon(Icons.local_dining, d_red, 30),
-          _buildIcon(Icons.settings, d_red, 30),
+          _buildIcon(Icons.home, AppColors.primaryColor, 30),
+          _buildIcon(Icons.local_dining, Color(0xFFD7D4D4), 30),
+          _buildIcon(Icons.settings, Color(0xFFD7D4D4), 30),
         ],
         onTap: (index) {
           setState(() {
             _page = index;
-            // Ajoutez une logique de navigation ici
             switch (_page) {
+              case 0:
+                break;
               case 1:
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => SettingsPage()),
                 );
                 break;
-              // Ajoutez d'autres cas pour d'autres pages si nécessaire
+              case 2:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsPage()),
+                );
+                break;
             }
           });
         },
@@ -209,7 +206,7 @@ class _HomePageState extends State<HomePage> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15.0),
-        border: Border.all(color: d_red, width: 2.0),
+        border: Border.all(color: AppColors.primaryColor, width: 2.0),
       ),
       child: DropdownButtonHideUnderline(
         child: Padding(
@@ -226,7 +223,7 @@ class _HomePageState extends State<HomePage> {
                 value: value,
                 child: Text(
                   value,
-                  style: TextStyle(color: d_red),
+                  style: TextStyle(color: AppColors.primaryColor),
                 ),
               );
             }).toList(),
@@ -248,10 +245,10 @@ class _HomePageState extends State<HomePage> {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        crossAxisSpacing: 15.0, // Espacement horizontal entre les boutons
-        mainAxisSpacing: 15.0, // Espacement vertical entre les boutons
+        crossAxisSpacing: 15.0,
+        mainAxisSpacing: 15.0,
       ),
-      itemCount: 6, // Nombre total de boutons
+      itemCount: 6,
       itemBuilder: (BuildContext context, int index) {
         return _buildButton(index);
       },
@@ -340,21 +337,15 @@ class _HomePageState extends State<HomePage> {
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.25),
-              // Couleur de l'ombre
               offset: Offset(0, 3),
-              // Décalage horizontal et vertical de l'ombre
               blurRadius: 5,
-              // Flou de l'ombre
-              spreadRadius: -1, // Extension de l'ombre
+              spreadRadius: -1,
             ),
             BoxShadow(
               color: Colors.black.withOpacity(0.3),
-              // Couleur de l'ombre
               offset: Offset(0, 1),
-              // Décalage horizontal et vertical de l'ombre
               blurRadius: 3,
-              // Flou de l'ombre
-              spreadRadius: -1, // Extension de l'ombre
+              spreadRadius: -1,
             ),
           ],
           gradient: LinearGradient(
@@ -403,16 +394,13 @@ Widget _buildFloatingActionButton() {
       mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(child: SizedBox()),
-        // Cet Expanded prendra tout l'espace disponible au-dessus du bouton
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              onPressed: () {
-                // Action à effectuer lors du clic sur le bouton flottant
-              },
+              onPressed: () {},
               style: TextButton.styleFrom(
-                backgroundColor: d_red,
+                backgroundColor: AppColors.primaryColor,
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
@@ -425,12 +413,6 @@ Widget _buildFloatingActionButton() {
                     style: TextStyle(
                       color: Colors.white,
                     ),
-                  ),
-                  SizedBox(width: 5), // Espacement entre le texte et l'emoji
-                  Image.asset(
-                    'images/emoji_question.png', // Chemin vers l'image d'emoji
-                    width: 20, // Taille de l'image
-                    height: 20,
                   ),
                 ],
               ),
