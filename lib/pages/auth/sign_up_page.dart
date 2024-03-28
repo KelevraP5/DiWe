@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -171,7 +173,9 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  void _signUp() async {
+  Future<void> _signUp() async {
+    const String apiurl = "http://2bci.portfolio-etudiant-rouen.com:40000/api/";
+
     String username = _usernameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
@@ -235,15 +239,29 @@ class _SignUpPageState extends State<SignUpPage> {
     }
 
     // Ajoutez d'autres validations pour le mot de passe, si nécessaire
+    if (_passwordErrorText.isEmpty) {
+      final response = await http.post(
+          Uri.parse("${apiurl}user-add"),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: jsonEncode({
+            'nom': username,
+            'email': email,
+          })
+      );
 
-    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+      print(response.body);
 
-    if (user != null) {
-      print("User created");
-      Navigator.pushNamed(context, "/home");
-    } else {
-      print("Error");
-      // Afficher un message d'erreur approprié en cas d'échec de l'inscription
+      User? user = await _auth.signUpWithEmailAndPassword(email, password);
+
+      if (user != null && response.statusCode == 200) {
+        print("User created");
+        Navigator.pushNamed(context, "/home");
+      } else {
+        print("Error");
+        // Afficher un message d'erreur approprié en cas d'échec de l'inscription
+      }
     }
   }
 
