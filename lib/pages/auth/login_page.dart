@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:diwe_flutter/pages/auth/widget/services/user_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,7 +25,8 @@ class _LoginPageState extends State<LoginPage> {
 
   String _emailErrorText = '';
   String _passwordErrorText = '';
-  String _loginErrorText = ''; // Ajout d'une variable pour afficher les erreurs de connexion
+  String _loginErrorText =
+      ''; // Ajout d'une variable pour afficher les erreurs de connexion
 
   @override
   void dispose() {
@@ -92,7 +96,8 @@ class _LoginPageState extends State<LoginPage> {
                   labelStyle: TextStyle(
                     color: AppColors.tertiaryColor,
                   ),
-                  errorText: _emailErrorText.isNotEmpty ? _emailErrorText : null,
+                  errorText:
+                      _emailErrorText.isNotEmpty ? _emailErrorText : null,
                 ),
                 onChanged: (_) {
                   setState(() {
@@ -111,7 +116,8 @@ class _LoginPageState extends State<LoginPage> {
                   labelStyle: TextStyle(
                     color: AppColors.tertiaryColor,
                   ),
-                  errorText: _passwordErrorText.isNotEmpty ? _passwordErrorText : null,
+                  errorText:
+                      _passwordErrorText.isNotEmpty ? _passwordErrorText : null,
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility : Icons.visibility_off,
@@ -131,9 +137,11 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
             ),
-            SizedBox(height: 10), // Espace supplémentaire entre le champ de mot de passe et le message d'erreur
+            SizedBox(height: 10),
+            // Espace supplémentaire entre le champ de mot de passe et le message d'erreur
             Visibility(
-              visible: _loginErrorText.isNotEmpty, // Afficher le message d'erreur seulement s'il y a une erreur de connexion
+              visible: _loginErrorText.isNotEmpty,
+              // Afficher le message d'erreur seulement s'il y a une erreur de connexion
               child: Text(
                 _loginErrorText,
                 style: TextStyle(
@@ -191,7 +199,11 @@ class _LoginPageState extends State<LoginPage> {
 
     if (user != null) {
       print("User logged in");
-      Navigator.pushNamed(context, "/home");
+      UserServices userServices = UserServices();
+      await userServices.getUser();
+      Timer(Duration(seconds: 5), () {
+        Navigator.pushNamed(context, "/home");
+      });
     } else {
       setState(() {
         _loginErrorText = 'Adresse e-mail ou mot de passe incorrect';

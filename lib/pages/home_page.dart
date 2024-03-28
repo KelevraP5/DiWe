@@ -1,3 +1,5 @@
+import 'package:diwe_flutter/pages/auth/widget/classes/user_data.dart';
+import 'package:diwe_flutter/pages/auth/widget/services/user_services.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -17,8 +19,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final UserModel user = UserModel();
   int _page = 0;
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +39,10 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 8.0, horizontal: 4.0),
                   child: Text(
-                    'Bonjour, Mohamed',
+                    'Bonjour, ${user.nom}',
                     style: TextStyle(
                       fontSize: 18,
                       color: AppColors.primaryColor,
@@ -47,12 +56,14 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.account_circle),
               color: AppColors.primaryColor,
               onPressed: () {
+                // UserServices userServices = UserServices();
+                // userServices.getUser();
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ProfilePage()),
                 );
               },
-
             ),
           ],
         ),
@@ -380,6 +391,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
 class LinearSales {
   final int year;
   final int sales;
@@ -398,8 +410,7 @@ Widget _buildFloatingActionButton() {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextButton(
-              onPressed: () {
-              },
+              onPressed: () {},
               style: TextButton.styleFrom(
                 backgroundColor: AppColors.primaryColor,
                 padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),

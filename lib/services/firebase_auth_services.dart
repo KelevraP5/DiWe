@@ -1,3 +1,4 @@
+import 'package:diwe_flutter/pages/auth/widget/classes/user_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FirebaseAuthService {
@@ -21,11 +22,12 @@ class FirebaseAuthService {
       UserCredential credential = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       var userToken = await credential.user?.getIdToken(true);
-      print("userToken${userToken}");
+      UserModel().token = userToken ?? '';
       return credential.user;
     } catch (e) {
-      print("Error occured");
+      // Log the error message for better debugging
+      print("Error occurred: $e");
+      return null;
     }
-    return null;
   }
 }
