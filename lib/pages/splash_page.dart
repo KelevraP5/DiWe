@@ -1,10 +1,10 @@
-import 'package:diwe_flutter/features/user_auth/presentation/pages/login_page.dart';
 import 'package:flutter/material.dart';
+import 'colors.dart';
 
 class SplashScreen extends StatefulWidget {
   final Widget? child;
 
-  const SplashScreen({super.key, this.child});
+  const SplashScreen({Key? key, this.child}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -15,9 +15,10 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => widget.child!),
-          (route) => false);
+        context,
+        MaterialPageRoute(builder: (context) => widget.child!),
+            (route) => false,
+      );
     });
     super.initState();
   }
@@ -25,14 +26,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: Center(
-        child: Text(
-          "Welcome to Diwe",
-          style: TextStyle(
-            color: Colors.orange,
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-          ),
+        child: Image.asset(
+          'assets/images/logo.png',
+          width: 150,
+          height: 150,
         ),
       ),
     );

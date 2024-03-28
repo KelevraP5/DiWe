@@ -1,10 +1,11 @@
-import 'package:diwe_flutter/features/app/splash_screen/splash_screen.dart';
-import 'package:diwe_flutter/features/user_auth/presentation/pages/home_page.dart';
-import 'package:diwe_flutter/features/user_auth/presentation/pages/login_page.dart';
-import 'package:diwe_flutter/features/user_auth/presentation/pages/sign_up_page.dart';
+import 'package:diwe_flutter/pages/splash_page.dart';
+import 'package:diwe_flutter/pages/welcome_page.dart';
+import 'pages/home_page.dart';
+import 'pages/auth/login_page.dart';
+import 'package:diwe_flutter/pages/auth/sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'services/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,11 +20,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter DiWe',
+      title: 'DiWe App',
       routes: {
         '/': (context) => SplashScreen(
-              // Here, you can decide whether to show the LoginPage or HomePage based on user authentication
-              child: LoginPage(),
+              child: WelcomePage(),
             ),
         '/login': (context) => LoginPage(),
         '/signUp': (context) => SignUpPage(),
