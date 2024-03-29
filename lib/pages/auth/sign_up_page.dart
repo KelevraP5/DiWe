@@ -88,7 +88,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelStyle: TextStyle(
                     color: AppColors.tertiaryColor,
                   ),
-                  errorText: _usernameErrorText.isNotEmpty ? _usernameErrorText : null,
+                  errorText:
+                      _usernameErrorText.isNotEmpty ? _usernameErrorText : null,
                 ),
                 onChanged: (_) {
                   setState(() {
@@ -106,7 +107,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelStyle: TextStyle(
                     color: AppColors.tertiaryColor,
                   ),
-                  errorText: _emailErrorText.isNotEmpty ? _emailErrorText : null,
+                  errorText:
+                      _emailErrorText.isNotEmpty ? _emailErrorText : null,
                 ),
                 onChanged: (_) {
                   setState(() {
@@ -125,7 +127,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   labelStyle: TextStyle(
                     color: AppColors.tertiaryColor,
                   ),
-                  errorText: _passwordErrorText.isNotEmpty ? _passwordErrorText : null,
+                  errorText:
+                      _passwordErrorText.isNotEmpty ? _passwordErrorText : null,
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility : Icons.visibility_off,
@@ -210,21 +213,24 @@ class _SignUpPageState extends State<SignUpPage> {
 
     if (password.length < 5) {
       setState(() {
-        _passwordErrorText = 'Le mot de passe doit contenir au moins 5 caractères';
+        _passwordErrorText =
+            'Le mot de passe doit contenir au moins 5 caractères';
       });
       return;
     }
 
     if (!containsUpperCase(password)) {
       setState(() {
-        _passwordErrorText = 'Le mot de passe doit contenir au moins une lettre majuscule';
+        _passwordErrorText =
+            'Le mot de passe doit contenir au moins une lettre majuscule';
       });
       return;
     }
 
     if (!containsSpecialCharacter(password)) {
       setState(() {
-        _passwordErrorText = 'Le mot de passe doit contenir au moins un caractère spécial';
+        _passwordErrorText =
+            'Le mot de passe doit contenir au moins un caractère spécial';
       });
       return;
     }
@@ -240,16 +246,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
     // Ajoutez d'autres validations pour le mot de passe, si nécessaire
     if (_passwordErrorText.isEmpty) {
-      final response = await http.post(
-          Uri.parse("${apiurl}user-add"),
+      final response = await http.post(Uri.parse("${apiurl}user-add"),
           headers: {
             'Content-Type': 'application/json',
           },
           body: jsonEncode({
             'nom': username,
             'email': email,
-          })
-      );
+          }));
 
       print(response.body);
 
@@ -257,7 +261,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
       if (user != null && response.statusCode == 200) {
         print("User created");
-        Navigator.pushNamed(context, "/home");
+        Navigator.pushNamed(context, "/login");
       } else {
         print("Error");
         // Afficher un message d'erreur approprié en cas d'échec de l'inscription
@@ -267,8 +271,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool isValidEmail(String email) {
     // Expression régulière pour valider l'adresse e-mail
-    String emailRegex =
-        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    String emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
     RegExp regex = RegExp(emailRegex);
     return regex.hasMatch(email);
   }
@@ -285,9 +288,11 @@ class _SignUpPageState extends State<SignUpPage> {
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<User?> signUpWithEmailAndPassword(String email, String password) async {
+  Future<User?> signUpWithEmailAndPassword(
+      String email, String password) async {
     try {
-      UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -300,12 +305,15 @@ class FirebaseAuthService {
 
   Future<bool> isEmailAlreadyInUse(String email) async {
     try {
-      UserCredential? userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential? userCredential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
-        password: 'randomPassword', // Utilisez un mot de passe aléatoire pour éviter la création de compte
+        password:
+            'randomPassword', // Utilisez un mot de passe aléatoire pour éviter la création de compte
       );
       if (userCredential.user != null) {
-        await userCredential.user?.delete(); // Supprimez l'utilisateur créé pour vérifier l'e-mail
+        await userCredential.user
+            ?.delete(); // Supprimez l'utilisateur créé pour vérifier l'e-mail
         return false; // L'e-mail n'est pas déjà utilisé
       } else {
         return true; // L'e-mail est déjà utilisé

@@ -20,27 +20,27 @@ class UserModel {
 
   Future<void> _saveTokenToPreferences(String token) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(token);
+    // print(token);
     await prefs.setString('UserModelToken', token);
     await prefs.setString('test', 'token');
   }
 
   static Future<void> saveTokenToPreferences(String token) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    print(token);
+    // print(token);
     await prefs.setString('UserModelToken', token);
   }
 
   static Future<void> loadTokenFromPreferences() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('UserModelToken');
-    print("token1 ${token}");
+    // print("token1 ${token}");
 
     if (token != null) {
-      print("tokenup ${token}");
+      // print("tokenup ${token}");
       _instance.token = token;
-      print("tokendown ${token}");
-      print("_instance.token ${_instance.token}");
+      // print("tokendown ${token}");
+      // print("_instance.token ${_instance.token}");
     }
   }
 
@@ -50,8 +50,8 @@ class UserModel {
   }
 
   static void updateFromJson(Map<String, dynamic> json) {
-    print(json['result']['email']);
-    print(json['result']['nom']);
+    // print(json['result']['email']);
+    // print(json['result']['nom']);
 
     _instance
       ..email = json['result']['email'] ?? ''
@@ -63,4 +63,11 @@ class UserModel {
         'email': email,
         'nom': nom,
       };
+
+  void clear() {
+    print('mabite');
+    token = "";
+    email = "";
+    nom = "";
+  }
 }

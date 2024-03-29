@@ -1,3 +1,5 @@
+import 'package:diwe_flutter/pages/auth/widget/classes/user_data.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../colors.dart';
@@ -8,6 +10,8 @@ import '../invite_friend_page.dart';
 import '../social_page.dart';
 
 class ProfilePage extends StatelessWidget {
+  final UserModel user = UserModel();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +39,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 20),
             Text(
-              'Nom Utilisateur',
+              user.nom,
               style: GoogleFonts.poppins(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -44,7 +48,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              'user@example.com',
+              user.email,
               style: GoogleFonts.poppins(
                 fontSize: 18,
                 color: Colors.grey,
@@ -76,7 +80,8 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 40),
             ListTile(
-              leading: Icon(Icons.help_outline, color: AppColors.primaryColor, size: 30),
+              leading: Icon(Icons.help_outline,
+                  color: AppColors.primaryColor, size: 30),
               title: Text(
                 'Aide',
                 style: GoogleFonts.poppins(
@@ -94,7 +99,8 @@ class ProfilePage extends StatelessWidget {
             ),
             Divider(height: 20, thickness: 1),
             ListTile(
-              leading: Icon(Icons.settings, color: AppColors.primaryColor, size: 30),
+              leading:
+                  Icon(Icons.settings, color: AppColors.primaryColor, size: 30),
               title: Text(
                 'Paramètres',
                 style: GoogleFonts.poppins(
@@ -112,7 +118,8 @@ class ProfilePage extends StatelessWidget {
             ),
             Divider(height: 20, thickness: 1),
             ListTile(
-              leading: Icon(Icons.person_add, color: AppColors.primaryColor, size: 30),
+              leading: Icon(Icons.person_add,
+                  color: AppColors.primaryColor, size: 30),
               title: Text(
                 'Inviter un ami',
                 style: GoogleFonts.poppins(
@@ -130,7 +137,8 @@ class ProfilePage extends StatelessWidget {
             ),
             Divider(height: 20, thickness: 1),
             ListTile(
-              leading: Icon(Icons.logout, color: AppColors.primaryColor, size: 30),
+              leading:
+                  Icon(Icons.logout, color: AppColors.primaryColor, size: 30),
               title: Text(
                 'Déconnexion',
                 style: GoogleFonts.poppins(
@@ -140,6 +148,8 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               onTap: () {
+                FirebaseAuth.instance.signOut();
+                UserModel().clear();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => SocialPage()),

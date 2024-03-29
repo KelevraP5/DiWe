@@ -1,5 +1,7 @@
+import 'package:diwe_flutter/pages/auth/sign_up_page.dart';
 import 'package:diwe_flutter/pages/auth/widget/classes/user_data.dart';
 import 'package:diwe_flutter/pages/auth/widget/services/user_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -58,7 +60,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 // UserServices userServices = UserServices();
                 // userServices.getUser();
-
+                // print("kekw , ${FirebaseAuth.instance.currentUser?.email}");
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ProfilePage()),

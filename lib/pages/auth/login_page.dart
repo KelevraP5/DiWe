@@ -201,9 +201,7 @@ class _LoginPageState extends State<LoginPage> {
       print("User logged in");
       UserServices userServices = UserServices();
       await userServices.getUser();
-      Timer(Duration(seconds: 5), () {
-        Navigator.pushNamed(context, "/home");
-      });
+      Navigator.pushNamed(context, "/home");
     } else {
       setState(() {
         _loginErrorText = 'Adresse e-mail ou mot de passe incorrect';
