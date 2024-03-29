@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'delayed_animation.dart';
 import 'colors.dart';
 import 'auth/sign_up_page.dart';
-import 'auth/login_page.dart';
+import 'auth/type_login_page.dart';
 
 class SocialPage extends StatelessWidget {
   @override
@@ -190,7 +190,7 @@ class SocialPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => LoginPage(),
+                            builder: (context) => TypeLoginPage(),
                           ),
                         );
                       },

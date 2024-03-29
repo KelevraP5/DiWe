@@ -4,15 +4,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:diwe_flutter/services/firebase_auth_services.dart';
 import '../delayed_animation.dart';
 import '../colors.dart';
+import '../home2_page.dart'; // Importez votre page d'accueil pour les médecins
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key});
+class Login2Page extends StatefulWidget {
+  const Login2Page({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<Login2Page> createState() => _Login2PageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _Login2PageState extends State<Login2Page> {
   final FirebaseAuthService _auth = FirebaseAuthService();
 
   TextEditingController _emailController = TextEditingController();
@@ -22,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
 
   String _emailErrorText = '';
   String _passwordErrorText = '';
-  String _loginErrorText = ''; // Ajout d'une variable pour afficher les erreurs de connexion
+  String _loginErrorText = '';
 
   @override
   void dispose() {
@@ -35,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.secondaryColor.withOpacity(0),
+        backgroundColor: AppColors.primaryColor,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
@@ -48,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
           },
         ),
       ),
+      backgroundColor: AppColors.primaryColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -62,9 +64,9 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "SE CONNECTER EN TANT QUE PATIENT",
+                      "SE CONNECTER EN TANT QUE MÉDECIN",
                       style: GoogleFonts.poppins(
-                        color: AppColors.primaryColor,
+                        color: AppColors.secondaryColor,
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                       ),
@@ -73,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                     Text(
                       "Connectez-vous avec votre adresse e-mail et votre mot de passe.",
                       style: GoogleFonts.poppins(
-                        color: AppColors.septenaryColor,
+                        color: AppColors.tertiaryColor,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -87,12 +89,16 @@ class _LoginPageState extends State<LoginPage> {
               margin: EdgeInsets.symmetric(horizontal: 30),
               child: TextField(
                 controller: _emailController,
+                style: TextStyle(color: Colors.white), // Texte en blanc
                 decoration: InputDecoration(
                   labelText: 'Votre Adresse Email',
                   labelStyle: TextStyle(
-                    color: AppColors.tertiaryColor,
+                    color: AppColors.secondaryColor,
                   ),
                   errorText: _emailErrorText.isNotEmpty ? _emailErrorText : null,
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
                 ),
                 onChanged: (_) {
                   setState(() {
@@ -106,22 +112,26 @@ class _LoginPageState extends State<LoginPage> {
               child: TextField(
                 obscureText: _obscureText,
                 controller: _passwordController,
+                style: TextStyle(color: Colors.white), // Texte en blanc
                 decoration: InputDecoration(
                   labelText: 'Mot de passe',
                   labelStyle: TextStyle(
-                    color: AppColors.tertiaryColor,
+                    color: AppColors.secondaryColor,
                   ),
                   errorText: _passwordErrorText.isNotEmpty ? _passwordErrorText : null,
                   suffixIcon: IconButton(
                     icon: Icon(
                       _obscureText ? Icons.visibility : Icons.visibility_off,
-                      color: AppColors.tertiaryColor,
+                      color: AppColors.secondaryColor,
                     ),
                     onPressed: () {
                       setState(() {
                         _obscureText = !_obscureText;
                       });
                     },
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
                   ),
                 ),
                 onChanged: (_) {
@@ -131,9 +141,9 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
             ),
-            SizedBox(height: 10), // Espace supplémentaire entre le champ de mot de passe et le message d'erreur
+            SizedBox(height: 10),
             Visibility(
-              visible: _loginErrorText.isNotEmpty, // Afficher le message d'erreur seulement s'il y a une erreur de connexion
+              visible: _loginErrorText.isNotEmpty,
               child: Text(
                 _loginErrorText,
                 style: TextStyle(
@@ -148,14 +158,14 @@ class _LoginPageState extends State<LoginPage> {
                 width: 325,
                 height: 50,
                 decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
+                  color: AppColors.secondaryColor,
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Center(
                   child: Text(
                     "Se connecter",
                     style: TextStyle(
-                      color: AppColors.secondaryColor,
+                      color: AppColors.primaryColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -191,7 +201,10 @@ class _LoginPageState extends State<LoginPage> {
 
     if (user != null) {
       print("User logged in");
-      Navigator.pushNamed(context, "/home");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => Home2Page()), // Rediriger vers Home2Page
+      );
     } else {
       setState(() {
         _loginErrorText = 'Adresse e-mail ou mot de passe incorrect';
