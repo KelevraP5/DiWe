@@ -7,13 +7,15 @@ import 'colors.dart';
 class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
     return Scaffold(
       backgroundColor: AppColors.secondaryColor,
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(
-            vertical: 100,
-            horizontal: 30,
+            vertical: screenSize.height * 0.1, // 10% de la hauteur de l'écran
+            horizontal: screenSize.width * 0.1, // 10% de la largeur de l'écran
           ),
           child: Column(
             children: [
@@ -21,32 +23,45 @@ class WelcomePage extends StatelessWidget {
                 delay: 1500,
                 child: Container(
                   child: Image.asset('assets/images/logo2.png'),
-                  width: 100,
-                  height: 100,
-                  margin: EdgeInsets.only(bottom: 20),
+                  width: screenSize.width * 0.2,
+                  // 20% de la largeur de l'écran
+                  height: screenSize.width * 0.2,
+                  // 20% de la largeur de l'écran
+                  margin: EdgeInsets.only(
+                      bottom: screenSize.height *
+                          0.02), // 2% de la hauteur de l'écran
                 ),
               ),
               DelayedAnimation(
                 delay: 2500,
                 child: Container(
                   child: Image.asset('assets/images/img1.png'),
-                  height: 400,
-                  margin: EdgeInsets.only(top: 40),
+                  height: screenSize.height * 0.4,
+                  // 40% de la hauteur de l'écran
+                  margin: EdgeInsets.only(
+                    top: screenSize.height * 0.05,
+                    // 5% de la hauteur de l'écran
+                    bottom: screenSize.height *
+                        0.05, // 5% de la hauteur de l'écran (ajout de l'espace en dessous)
+                  ),
                 ),
               ),
               DelayedAnimation(
                 delay: 3500,
                 child: Container(
                   margin: EdgeInsets.only(
-                    top: 30,
-                    bottom: 20,
+                    top: screenSize.height * 0.03,
+                    // 3% de la hauteur de l'écran
+                    bottom:
+                        screenSize.height * 0.02, // 2% de la hauteur de l'écran
                   ),
                   child: Text(
                     "Ensemble pour un diabète maîtrisé",
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                       color: AppColors.tertiaryColor,
-                      fontSize: 16,
+                      fontSize: screenSize.width *
+                          0.04, // 4% de la largeur de l'écran
                     ),
                   ),
                 ),
@@ -57,9 +72,11 @@ class WelcomePage extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryColor,
-                        shape: StadiumBorder(),
-                        padding: EdgeInsets.all(13)),
+                      backgroundColor: AppColors.primaryColor,
+                      shape: StadiumBorder(),
+                      padding: EdgeInsets.all(screenSize.width *
+                          0.032), // 3.2% de la largeur de l'écran
+                    ),
                     child: Text(
                       'COMMENCER',
                       style: TextStyle(

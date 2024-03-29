@@ -13,13 +13,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    final double scaleFactor = screenSize.width > 600 ? 1.0 : 0.8;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
           'Modifier mon profil',
           style: GoogleFonts.poppins(
             color: AppColors.primaryColor,
-            fontSize: 20,
+            fontSize: 20 * scaleFactor,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -28,52 +31,52 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20 * scaleFactor),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 20),
+              SizedBox(height: 20 * scaleFactor),
               CircleAvatar(
-                radius: 80,
+                radius: 80 * scaleFactor,
                 backgroundImage: AssetImage('assets/images/profile_image.jpg'),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20 * scaleFactor),
               Text(
                 'Modifier vos informations',
                 style: GoogleFonts.poppins(
-                  fontSize: 24,
+                  fontSize: 24 * scaleFactor,
                   fontWeight: FontWeight.bold,
                   color: AppColors.primaryColor,
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20 * scaleFactor),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Nom',
                   labelStyle: TextStyle(color: AppColors.primaryColor),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10 * scaleFactor),
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 10 * scaleFactor),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Email',
                   labelStyle: TextStyle(color: AppColors.primaryColor),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10 * scaleFactor),
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 10 * scaleFactor),
               TextFormField(
                 obscureText: _isObscure,
                 decoration: InputDecoration(
                   labelText: 'Mot de passe',
                   labelStyle: TextStyle(color: AppColors.primaryColor),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10 * scaleFactor),
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -88,7 +91,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20 * scaleFactor),
               ElevatedButton(
                 onPressed: () {
                   // Actions à effectuer lors de l'appui sur le bouton Enregistrer
@@ -100,7 +103,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 child: Text(
                   'Enregistrer',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 16 * scaleFactor,
                     color: AppColors.secondaryColor,
                     fontWeight: FontWeight.bold,
                   ),
@@ -108,12 +111,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primaryColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(25 * scaleFactor),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 30),
+                  padding: EdgeInsets.symmetric(
+                      vertical: 14 * scaleFactor, horizontal: 30 * scaleFactor),
                 ),
               ),
-              SizedBox(height: 10), // Ajout d'un espace supplémentaire
+              SizedBox(height: 10 * scaleFactor),
+              // Ajout d'un espace supplémentaire
               TextButton(
                 onPressed: () {
                   // Actions à effectuer lors de l'appui sur le bouton Supprimer le compte
@@ -125,7 +130,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   style: TextStyle(
                     color: AppColors.primaryColor,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 16 * scaleFactor,
                   ),
                 ),
               ),

@@ -410,28 +410,7 @@ Widget _buildFloatingActionButton() {
         Expanded(child: SizedBox()),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(
-                backgroundColor: AppColors.primaryColor,
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-                ),
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    'Besoin d\'aide ?',
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+          children: [],
         ),
       ],
     ),
